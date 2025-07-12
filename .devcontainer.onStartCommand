@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+set -e
+
+cd backstage
+
+screen -d -m -S backstage zsh -c "yarn install && yarn start"
+
+cd -
