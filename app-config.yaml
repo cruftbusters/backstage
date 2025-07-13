@@ -1,6 +1,9 @@
 app:
   title: Cruftbusters Backstage
-  baseUrl: http://localhost:3000
+  baseUrl: http://backstage.localhost:8080
+  listen:
+    host: localhost
+    port: 3000
 
 organization:
   name: Cruftbusters
@@ -12,7 +15,7 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://localhost:7007
+  baseUrl: http://api.backstage.localhost:8080
   listen:
     port: 7007
     # Uncomment the following host directive to bind to specific interfaces
@@ -22,7 +25,7 @@ backend:
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
-    origin: http://localhost:3000
+    origin: http://backstage.localhost:8080
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
   # This is for local development only, it is not recommended to use this in production
