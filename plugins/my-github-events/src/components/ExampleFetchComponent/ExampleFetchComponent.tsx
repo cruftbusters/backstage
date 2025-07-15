@@ -1,92 +1,35 @@
-import { makeStyles } from '@material-ui/core/styles';
 import {
-  Table,
-  TableColumn,
+  InfoCard,
   Progress,
   ResponseErrorPanel,
 } from '@backstage/core-components';
 import useAsync from 'react-use/lib/useAsync';
 
-export const exampleUsers = {
-  results: [
-    {
-      gender: 'female',
-      name: {
-        title: 'Miss',
-        first: 'Carolyn',
-        last: 'Moore',
-      },
-      email: 'carolyn.moore@example.com',
-      picture: 'https://api.dicebear.com/6.x/open-peeps/svg?seed=Carolyn',
-      nat: 'GB',
-    },
-  ],
-};
+import {
+  useApi,
+  discoveryApiRef,
+  fetchApiRef,
+} from '@backstage/core-plugin-api';
+import { makeStyles, Typography } from '@material-ui/core';
+import { useState } from 'react';
 
 const useStyles = makeStyles({
-  avatar: {
-    height: 32,
-    width: 32,
-    borderRadius: '50%',
+  monospace: {
+    fontFamily: 'monospace',
   },
 });
 
-type User = {
-  gender: string; // "male"
-  name: {
-    title: string; // "Mr",
-    first: string; // "Duane",
-    last: string; // "Reed"
-  };
-  email: string; // "duane.reed@example.com"
-  picture: string; // "https://api.dicebear.com/6.x/open-peeps/svg?seed=Duane"
-  nat: string; // "AU"
-};
-
-type DenseTableProps = {
-  users: User[];
-};
-
-export const DenseTable = ({ users }: DenseTableProps) => {
-  const classes = useStyles();
-
-  const columns: TableColumn[] = [
-    { title: 'Avatar', field: 'avatar' },
-    { title: 'Name', field: 'name' },
-    { title: 'Email', field: 'email' },
-    { title: 'Nationality', field: 'nationality' },
-  ];
-
-  const data = users.map(user => {
-    return {
-      avatar: (
-        <img
-          src={user.picture}
-          className={classes.avatar}
-          alt={user.name.first}
-        />
-      ),
-      name: `${user.name.first} ${user.name.last}`,
-      email: user.email,
-      nationality: user.nat,
-    };
-  });
-
-  return (
-    <Table
-      title="Example User List"
-      options={{ search: false, paging: false }}
-      columns={columns}
-      data={data}
-    />
-  );
-};
-
 export const ExampleFetchComponent = () => {
-  const { value, loading, error } = useAsync(async (): Promise<User[]> => {
-    // Would use fetch in a real world example
-    return exampleUsers.results;
-  }, []);
+  const classes = useStyles();
+  const fetchApi = useApi(fetchApiRef);
+  const discoveryApi = useApi(discoveryApiRef);
+  const [state, setState] = useState({ status: '', text: '' });
+
+  const { value, loading, error } = useAsync(async () => {
+    const baseUrl = await discoveryApi.getBaseUrl('my-github-events');
+    const response = await fetchApi.fetch(`${baseUrl}/todos`);
+    return response.json();
+  }, [fetchApi, discoveryApi]);
 
   if (loading) {
     return <Progress />;
@@ -94,5 +37,46 @@ export const ExampleFetchComponent = () => {
     return <ResponseErrorPanel error={error} />;
   }
 
-  return <DenseTable users={value || []} />;
+  async function submitTodo() {
+    const baseUrl = await discoveryApi.getBaseUrl('my-github-events');
+    const response = await fetchApi.fetch(`${baseUrl}/todos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: state.text,
+    });
+
+    if (response.status !== 201) {
+      const text = await response.text();
+      const payload = JSON.parse(text);
+      const message = payload.error.message;
+
+      const cause = Error(
+        `expected status to be 201 got ${response.status}: ${text}`,
+      );
+
+      setState(state => ({ ...state, status: message }));
+      console.error(message, cause);
+    } else {
+      setState(state => ({ ...state, status: 'todo created' }));
+    }
+  }
+
+  return (
+    <InfoCard title="Todos">
+      <div>{state.status}</div>
+      <label>
+        {' new todo: '}
+        <textarea
+          onChange={e =>
+            setState(state => ({ ...state, text: e.target.value }))
+          }
+          value={state.text}
+        />
+      </label>
+      <button onClick={() => submitTodo()}>submit todo</button>
+      <Typography variant="body1">
+        <span className={classes.monospace}>{JSON.stringify(value)}</span>
+      </Typography>
+    </InfoCard>
+  );
 };
