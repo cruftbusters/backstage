@@ -54,5 +54,6 @@ e2e-test-report/
 
 # Cache
 .cache/
+auth_providers_github_development_clientId.txt
 auth_providers_github_development_clientSecret.txt
 integrations_github_token.txt

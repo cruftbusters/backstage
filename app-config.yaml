@@ -74,7 +74,8 @@ auth:
     guest: {}
     github:
       development:
-        clientId: Ov23lijyrKJ6eMvC42Ej
+        clientId:
+          $file: auth_providers_github_development_clientId.txt
         clientSecret:
           $file: auth_providers_github_development_clientSecret.txt
         signIn:
