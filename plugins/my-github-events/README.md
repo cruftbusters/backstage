@@ -1,8 +1,6 @@
 # my-github-events
 
-Welcome to the my-github-events plugin!
-
-_This plugin was created through the Backstage CLI_
+The purpose of this plugin is to demonstrate programmatic reaction to GitHub repository push events in Backstage.
 
 ## Getting started
 
@@ -11,3 +9,9 @@ Your plugin has been added to the example app in this repository, meaning you'll
 You can also serve the plugin in isolation by running `yarn start` in the plugin directory.
 This method of serving the plugin provides quicker iteration speed and a faster startup and hot reloads.
 It is only meant for local development, and the setup for it can be found inside the [/dev](./dev) directory.
+
+## TODO
+
+- add frontend
+- add frontend textarea and button to submit json event against backend
+- add frontend template for json events that accurately represent github repository push events

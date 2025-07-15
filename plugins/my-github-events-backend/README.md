@@ -1,6 +1,6 @@
 # my-github-events
 
-This plugin backend was templated using the Backstage CLI. You should replace this text with a description of your plugin backend.
+The purpose of this plugin is to demonstrate programmatic reaction to GitHub repository push events in Backstage.
 
 ## Installation
 
@@ -26,3 +26,8 @@ package with `yarn start`. It is a limited setup that is most convenient when
 developing the plugin backend itself.
 
 If you want to run the entire project, including the frontend, run `yarn start` from the root directory.
+
+## TODO
+
+- backend prints an inbound event
+- backend updates a component's status
