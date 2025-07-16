@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ExampleFetchComponent = () => {
+export const TodoComponent = () => {
   const classes = useStyles();
   const fetchApi = useApi(fetchApiRef);
   const discoveryApi = useApi(discoveryApiRef);

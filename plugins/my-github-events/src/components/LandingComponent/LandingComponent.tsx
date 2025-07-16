@@ -7,7 +7,7 @@ import {
   HeaderLabel,
   SupportButton,
 } from '@backstage/core-components';
-import { ExampleFetchComponent } from '../ExampleFetchComponent';
+import { TodoComponent } from '../TodoComponent';
 
 export const LandingComponent = () => (
   <Page themeId="tool">
@@ -21,7 +21,7 @@ export const LandingComponent = () => (
       </ContentHeader>
       <Grid container spacing={3} direction="column">
         <Grid item>
-          <ExampleFetchComponent />
+          <TodoComponent />
         </Grid>
       </Grid>
     </Content>

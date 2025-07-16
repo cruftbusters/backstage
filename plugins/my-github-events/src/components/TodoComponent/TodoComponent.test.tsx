@@ -1,10 +1,10 @@
 import { renderInTestApp } from '@backstage/test-utils';
-import { ExampleFetchComponent } from './ExampleFetchComponent';
+import { TodoComponent } from './TodoComponent';
 
-describe('ExampleFetchComponent', () => {
+describe('TodoComponent', () => {
   it('renders the user table', async () => {
     const { getAllByText, getByAltText, getByText, findByRole } =
-      await renderInTestApp(<ExampleFetchComponent />);
+      await renderInTestApp(<TodoComponent />);
 
     // Wait for the table to render
     const table = await findByRole('table');
