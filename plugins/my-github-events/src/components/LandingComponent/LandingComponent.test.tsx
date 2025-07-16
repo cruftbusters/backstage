@@ -1,13 +1,10 @@
-import { ExampleComponent } from './ExampleComponent';
+import { LandingComponent } from './LandingComponent';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { screen } from '@testing-library/react';
-import {
-  registerMswTestHooks,
-  renderInTestApp,
-} from '@backstage/test-utils';
+import { registerMswTestHooks, renderInTestApp } from '@backstage/test-utils';
 
-describe('ExampleComponent', () => {
+describe('LandingComponent', () => {
   const server = setupServer();
   // Enable sane handlers for network requests
   registerMswTestHooks(server);
@@ -20,7 +17,7 @@ describe('ExampleComponent', () => {
   });
 
   it('should render', async () => {
-    await renderInTestApp(<ExampleComponent />);
+    await renderInTestApp(<LandingComponent />);
     expect(
       screen.getByText('Welcome to my-github-events!'),
     ).toBeInTheDocument();

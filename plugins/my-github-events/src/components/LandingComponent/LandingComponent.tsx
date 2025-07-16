@@ -9,7 +9,7 @@ import {
 } from '@backstage/core-components';
 import { ExampleFetchComponent } from '../ExampleFetchComponent';
 
-export const ExampleComponent = () => (
+export const LandingComponent = () => (
   <Page themeId="tool">
     <Header title="Welcome to my-github-events!" subtitle="Optional subtitle">
       <HeaderLabel label="Owner" value="Team X" />

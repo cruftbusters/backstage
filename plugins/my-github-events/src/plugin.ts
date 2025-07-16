@@ -16,7 +16,7 @@ export const MyGithubEventsPage = myGithubEventsPlugin.provide(
   createRoutableExtension({
     name: 'MyGithubEventsPage',
     component: () =>
-      import('./components/ExampleComponent').then(m => m.ExampleComponent),
+      import('./components/LandingComponent').then(m => m.LandingComponent),
     mountPoint: rootRouteRef,
   }),
 );
