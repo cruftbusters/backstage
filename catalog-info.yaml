@@ -7,6 +7,15 @@ metadata:
   # annotations:
   #   github.com/project-slug: backstage/backstage
   #   backstage.io/techdocs-ref: dir:.
+  annotations:
+    openshift-namespace: >-
+      project:
+        name: my-backstage-namespace
+      egressfirewall:
+        allowrules:
+          - myegress.com
+      rolebinding:
+        developergroup: Some_developer
 spec:
   type: website
   owner: user:arctair
