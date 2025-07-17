@@ -11,7 +11,6 @@ import {
   fetchApiRef,
 } from '@backstage/core-plugin-api';
 import { makeStyles } from '@material-ui/core';
-import { useState } from 'react';
 
 const useStyles = makeStyles({
   monospace: {
@@ -41,6 +40,16 @@ export const MyOpenshiftControllerComponent = () => {
 
   return (
     <InfoCard title="My OpenShift Controller">
+      <p>
+        This demo showcases custom reactive Backstage plugins, backends, and
+        modules. It could establish a rudimentary
+        <a href="https://kubernetes.io/docs/concepts/architecture/controller/">
+          {' controller '}
+        </a>
+        consuming components declared in catalog-info and in turn creating,
+        updating, or deleting static websites, kubernetes namespaces, and other
+        parts of the stack.
+      </p>
       {loading ? (
         <Progress />
       ) : error ? (
