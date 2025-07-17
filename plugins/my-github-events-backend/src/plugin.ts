@@ -5,6 +5,7 @@ import {
 import { createRouter } from './router';
 import { catalogServiceRef } from '@backstage/plugin-catalog-node';
 import { createTodoListService } from './services/TodoListService';
+import { createEntityQueryService } from './services/EntityQueryService';
 
 /**
  * myGithubEventsPlugin backend plugin
@@ -27,10 +28,16 @@ export const myGithubEventsPlugin = createBackendPlugin({
           catalog,
         });
 
+        const entityQueryService = await createEntityQueryService({
+          logger,
+          catalog,
+        });
+
         httpRouter.use(
           await createRouter({
             httpAuth,
             todoListService,
+            entityQueryService,
           }),
         );
       },

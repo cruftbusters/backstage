@@ -8,6 +8,7 @@ import {
   SupportButton,
 } from '@backstage/core-components';
 import { TodoComponent } from '../TodoComponent';
+import { EntityQueryComponent } from '../EntityQueryComponent';
 
 export const LandingComponent = () => (
   <Page themeId="tool">
@@ -22,6 +23,9 @@ export const LandingComponent = () => (
       <Grid container spacing={3} direction="column">
         <Grid item>
           <TodoComponent />
+        </Grid>
+        <Grid item>
+          <EntityQueryComponent />
         </Grid>
       </Grid>
     </Content>

@@ -1,0 +1,1 @@
+export { EntityQueryComponent } from './EntityQueryComponent';

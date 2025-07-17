@@ -4,13 +4,16 @@ import { z } from 'zod';
 import express from 'express';
 import Router from 'express-promise-router';
 import { TodoListService } from './services/TodoListService/types';
+import { EntityQueryService } from './services/EntityQueryService/types';
 
 export async function createRouter({
   httpAuth,
   todoListService,
+  entityQueryService,
 }: {
   httpAuth: HttpAuthService;
   todoListService: TodoListService;
+  entityQueryService: EntityQueryService;
 }): Promise<express.Router> {
   const router = Router();
   router.use(express.json());
@@ -45,6 +48,25 @@ export async function createRouter({
 
   router.get('/todos/:id', async (req, res) => {
     res.json(await todoListService.getTodo({ id: req.params.id }));
+  });
+
+  const queryEntitySchema = z.object({
+    queryText: z.string(),
+  });
+
+  router.get('/entities', async (req, res) => {
+    const parsed = queryEntitySchema.safeParse(req.query);
+    if (!parsed.success) {
+      throw new InputError(parsed.error.toString());
+    }
+    res.json(
+      await entityQueryService.queryEntities(
+        req.query as { queryText: string },
+        {
+          credentials: await httpAuth.credentials(req, { allow: ['user'] }),
+        },
+      ),
+    );
   });
 
   return router;
