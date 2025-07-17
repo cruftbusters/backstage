@@ -9,6 +9,7 @@ import {
 } from '@backstage/core-components';
 import { TodoComponent } from '../TodoComponent';
 import { EntityQueryComponent } from '../EntityQueryComponent';
+import { MyOpenshiftControllerComponent } from '../MyOpenshiftControllerComponent';
 
 export const LandingComponent = () => (
   <Page themeId="tool">
@@ -22,10 +23,13 @@ export const LandingComponent = () => (
       </ContentHeader>
       <Grid container spacing={3} direction="column">
         <Grid item>
-          <TodoComponent />
+          <MyOpenshiftControllerComponent />
         </Grid>
         <Grid item>
           <EntityQueryComponent />
+        </Grid>
+        <Grid item>
+          <TodoComponent />
         </Grid>
       </Grid>
     </Content>

@@ -1,0 +1,1 @@
+export { MyOpenshiftControllerComponent } from './MyOpenshiftControllerComponent';
