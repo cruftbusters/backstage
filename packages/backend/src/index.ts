@@ -54,4 +54,5 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 backend.add(import('@backstage/plugin-kubernetes-backend'));
 
 backend.add(import('@internal/plugin-my-github-events-backend'));
+backend.add(import('@internal/plugin-catalog-backend-module-my-openshift-controller'));
 backend.start();
