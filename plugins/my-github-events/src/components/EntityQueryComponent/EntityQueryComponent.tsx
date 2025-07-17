@@ -49,7 +49,7 @@ export const EntityQueryComponent = () => {
   return (
     <InfoCard title="Entities">
       <label>
-        {' query: '}
+        {' search by entity metadata.name: '}
         <input
           onChange={e =>
             setState(state => ({ ...state, text: e.target.value }))
