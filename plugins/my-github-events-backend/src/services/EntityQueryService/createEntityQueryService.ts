@@ -1,5 +1,4 @@
 import { LoggerService } from '@backstage/backend-plugin-api';
-import { NotFoundError } from '@backstage/errors';
 import { catalogServiceRef } from '@backstage/plugin-catalog-node';
 import { EntityItem, EntityQueryService } from './types';
 
@@ -14,16 +13,12 @@ export async function createEntityQueryService({
 
   return {
     async queryEntities({ queryText }, options) {
-      const entity = await catalog.getEntityByRef(queryText, options);
+      const entities = await catalog.getEntities(
+        queryText ? { filter: { 'metadata.name': queryText } } : {},
+        options,
+      );
 
-      if (!entity) {
-        throw new NotFoundError(`No entity found for ref '${queryText}'`);
-      }
-
-      return {
-        items: [entity as unknown as EntityItem],
-        queryText,
-      };
+      return entities as unknown as { items: EntityItem[] };
     },
   };
 }
