@@ -16,6 +16,7 @@ import { useState } from 'react';
 const useStyles = makeStyles({
   monospace: {
     fontFamily: 'monospace',
+    whiteSpace: 'pre-wrap',
   },
 });
 
@@ -63,7 +64,7 @@ export const EntityQueryComponent = () => {
       ) : (
         <div>{state.status}</div>
       )}
-      <p className={classes.monospace}>{JSON.stringify(value)}</p>
+      <p className={classes.monospace}>{JSON.stringify(value, null, 2)}</p>
     </InfoCard>
   );
 };
