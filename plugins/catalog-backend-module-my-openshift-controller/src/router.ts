@@ -1,16 +1,16 @@
-import { HttpAuthService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import Router from 'express-promise-router';
+import { MyOpenShiftController } from './MyOpenShiftController/types';
 
 export async function createRouter({
-  httpAuth,
+  controller,
 }: {
-  httpAuth: HttpAuthService;
+  controller: MyOpenShiftController;
 }): Promise<express.Router> {
   const router = Router();
 
   router.get('/my-openshift-components', async (request, response) => {
-    response.json({ message: 'hello world' });
+    response.json(controller.getComponents());
   });
 
   return router;

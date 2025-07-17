@@ -50,6 +50,10 @@ export const MyOpenshiftControllerComponent = () => {
         updating, or deleting static websites, kubernetes namespaces, and other
         parts of the stack.
       </p>
+      <p>
+        This shows the latest value for each components' metadata annotation
+        "openshift-namespace":
+      </p>
       {loading ? (
         <Progress />
       ) : error ? (

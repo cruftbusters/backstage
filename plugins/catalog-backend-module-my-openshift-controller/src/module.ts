@@ -2,7 +2,9 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
+import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
 import { createRouter } from './router';
+import { createMyOpenShiftController } from './MyOpenShiftController/createMyOpenShiftController';
 
 export const catalogModuleMyOpenshiftController = createBackendModule({
   pluginId: 'catalog',
@@ -10,16 +12,18 @@ export const catalogModuleMyOpenshiftController = createBackendModule({
   register(reg) {
     reg.registerInit({
       deps: {
+        catalog: catalogProcessingExtensionPoint,
         logger: coreServices.logger,
-        httpAuth: coreServices.httpAuth,
         httpRouter: coreServices.httpRouter,
       },
-      async init({ logger, httpAuth, httpRouter }) {
-        logger.info('Hello World!');
+      async init({ catalog, logger, httpRouter }) {
+        const controller = await createMyOpenShiftController({ logger });
+
+        catalog.addProcessor(controller);
 
         httpRouter.use(
           await createRouter({
-            httpAuth,
+            controller,
           }),
         );
       },
